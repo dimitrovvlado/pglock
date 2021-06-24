@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:10.9-alpine
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: pglock
+      POSTGRES_USER: pglock
+      POSTGRES_DB: pglock
+  pglock:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
